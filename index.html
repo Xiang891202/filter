@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes"/>
+  <title>多重篩選器</title>
+  <link rel="stylesheet" href="./CSS/style.css"/>
+</head>
+<body>
+    <div class="center-wrapper">
+        <div id="main-content">
+            <!-- 🔹 篩選器區域 -->
+            <section id="filter-section">
+              <!-- JS 會把 filterName.js 的內容塞進來 -->
+            </section>
+          
+            <!-- 商品列表 -->
+            <section id="product-section">
+                <div id="loading-products">
+                    <p>商品加載中...</p>
+                </div>
+            </section>
+        </div>
+        
+        <!-- 商品詳細頁面 - 動態顯示 -->
+        <section id="product-detail-section" class="detail-page" style="display: none;">
+        <!-- 詳細頁面將由JS動態生成 -->
+        </section>
+    </div>
+
+  <!-- JS 載入順序很重要 -->
+  <script src="./JS/filterName.js"></script>
+  <script src="./JS/filter.js"></script>
+  <script src="./JS/productName.js"></script>
+  <script src="./JS/product.js"></script>
+</body>
+</html>
