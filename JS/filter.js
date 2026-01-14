@@ -2921,13 +2921,15 @@ function reinitializeFilters() {
   }
 }
 
-// 修改返回商品列表函數，確保篩選器正常工作
+// 修改 backToProductList 函數
 window.backToProductList = function() {
   const mainContent = document.getElementById("main-content");
   const detailSection = document.getElementById("product-detail-section");
   
   if (detailSection) {
+    // 添加過渡效果
     detailSection.classList.remove('active');
+    document.body.classList.remove('detail-active');
     
     setTimeout(() => {
       detailSection.style.display = 'none';
@@ -2943,11 +2945,56 @@ window.backToProductList = function() {
       // 恢復頁面標題
       document.title = "房屋篩選系統 | 商品展示";
       
-      // 重新初始化篩選器事件（如果需要）
-      reinitializeFilters();
+      // 滾動到頂部
+      window.scrollTo(0, 0);
     }, 300);
   }
 };
+
+// 修改顯示商品詳細頁面的函數（在product.js中應該有）
+function showProductDetail(product) {
+  const mainContent = document.getElementById("main-content");
+  const detailSection = document.getElementById("product-detail-section");
+  
+  if (detailSection && mainContent) {
+    // 生成詳細頁面HTML（這裡應該有您的詳細頁面生成邏輯）
+    // ...
+    
+    // 顯示詳細頁面
+function showDetail() {
+  const detailSection = document.querySelector('.product-detail-section');
+  detailSection.classList.add('active');
+  document.body.classList.add('detail-active');
+  
+  // 如果使用 flex 佈局，確保容器正確設置
+  const container = document.querySelector('.product-detail-container');
+  if (container) {
+    container.style.display = 'flex';
+  }
+}
+
+// 返回列表
+function backToList() {
+  const detailSection = document.querySelector('.product-detail-section');
+  detailSection.classList.remove('active');
+  document.body.classList.remove('detail-active');
+}
+    
+    // 隱藏主內容
+    mainContent.style.display = 'none';
+    
+    // 更新URL
+    const url = new URL(window.location);
+    url.searchParams.set('product', product.id || product.name);
+    window.history.pushState({ product: product }, '', url);
+    
+    // 更新頁面標題
+    document.title = `${product.name} - 房屋篩選系統`;
+    
+    // 滾動到頂部
+    window.scrollTo(0, 0);
+  }
+}
 
 // 在 filter.js 的 DOMContentLoaded 事件中，添加移動設備優化
 document.addEventListener('DOMContentLoaded', function() {
@@ -3001,3 +3048,39 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 });
+
+// 顯示詳細頁面
+function showProductDetail(productId) {
+  // 1. 隱藏主內容
+  document.getElementById('main-content').style.display = 'none';
+  
+  // 2. 顯示詳細頁面
+  const detailSection = document.getElementById('product-detail-section');
+  detailSection.classList.add('active');
+  
+  // 3. 為 body 添加類別（防止背景滾動）
+  document.body.classList.add('has-active-detail');
+  
+  // 4. 滾動到頂部
+  window.scrollTo(0, 0);
+  detailSection.scrollTop = 0;
+  
+  // 5. 載入產品資料
+  loadProductData(productId);
+}
+
+// 返回列表
+function backToList() {
+  // 1. 隱藏詳細頁面
+  const detailSection = document.getElementById('product-detail-section');
+  detailSection.classList.remove('active');
+  
+  // 2. 顯示主內容
+  document.getElementById('main-content').style.display = 'block';
+  
+  // 3. 移除 body 類別
+  document.body.classList.remove('has-active-detail');
+  
+  // 4. 滾動到頂部
+  window.scrollTo(0, 0);
+}
