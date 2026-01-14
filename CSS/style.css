@@ -2700,19 +2700,11 @@ body {
 /* 手機篩選器下拉選單樣式 */
 /* ==================== */
 
-/* 576px 手機樣式 */
-@media (max-width: 576px) {
-  /* 隱藏原有的篩選器結構 */
-  .filter-group .filter-header,
-  .filter-group .filter-panel,
-  .filter-group .filter-tabs,
-  .filter-group .more-tabs {
-    display: none !important;
-  }
+
   
   /* 顯示移動設備的下拉選單 */
   .filter-group .mobile-filter-dropdown {
-    display: block !important;
+    /* display: block !important; */
   }
   
   /* 篩選器組容器優化 */
@@ -2995,3 +2987,1463 @@ body {
   }
 }
 
+/* ==================== */
+/* 桌面版篩選器 - 預設顯示 */
+/* ==================== */
+
+/* 桌面版結構 */
+.filter-header,
+.filter-panel,
+.filter-tabs,
+.more-tabs {
+  display: flex; /* 或其他適當的顯示方式 */
+}
+
+/* 移動設備下拉選單 - 預設隱藏 */
+.mobile-filter-dropdown {
+  display: none;
+}
+
+/* ==================== */
+/* 手機篩選器下拉選單樣式 (576px以下) */
+/* ==================== */
+
+@media (max-width: 576px) {
+  /* 隱藏桌面版篩選器結構 */
+  .filter-group .filter-header,
+  .filter-group .filter-panel,
+  .filter-group .filter-tabs,
+  .filter-group .more-tabs {
+    display: none !important;
+  }
+  
+  /* 顯示移動設備的下拉選單 */
+  .filter-group .mobile-filter-dropdown {
+    display: block !important;
+  }
+  
+  /* ... 其他移動設備專用樣式 ... */
+}
+
+/* ==================== */
+/* 移動設備篩選器優化 (768px以下) */
+/* ==================== */
+
+@media (max-width: 768px) {
+  /* 只優化樣式，不要隱藏/顯示切換 */
+  /* 這裡放響應式優化樣式，但不要改變顯示/隱藏狀態 */
+  
+  /* 例如：調整邊距、字體大小等 */
+  #filter-section {
+    padding: 15px;
+  }
+  
+  .filter-tab {
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+  
+  /* ... 其他優化樣式 ... */
+}
+
+/* 詳細頁樣式 */
+.product-detail-section {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: white;
+    z-index: 1000;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.product-detail-section.active {
+    display: block;
+}
+
+.product-detail-container {
+    display: flex;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 40px;
+}
+
+/* 圖片區域 */
+.detail-images {
+    flex: 1;
+    min-width: 300px;
+}
+
+.main-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+/* 詳細資料區域 */
+.detail-info {
+    flex: 1;
+    min-width: 300px;
+}
+
+.detail-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.detail-price-section {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.price-label {
+    font-weight: bold;
+    color: #666;
+    margin-right: 10px;
+}
+
+.price-value {
+    font-size: 24px;
+    color: #e74c3c;
+    font-weight: bold;
+}
+
+/* 規格項目 */
+.detail-specs {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.spec-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.spec-label {
+    color: #666;
+}
+
+.spec-value {
+    font-weight: bold;
+    color: #333;
+}
+
+/* 返回按鈕 */
+.back-btn {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+.back-btn:hover {
+    background: #2980b9;
+}
+
+/* 響應式設計 */
+@media (max-width: 768px) {
+    .product-detail-container {
+        flex-direction: column;
+    }
+    
+    .detail-specs {
+        grid-template-columns: 1fr;
+    }
+    
+    .back-btn {
+        position: relative;
+        top: auto;
+        left: auto;
+        margin-bottom: 20px;
+    }
+}
+
+/* ==================== */
+/* 商品詳細頁面 RWD 修復 */
+/* ==================== */
+
+/* 確保詳細頁面在所有屏幕尺寸下都能正確顯示 */
+#product-detail-section,
+.product-detail-section {
+  display: block !important;
+  position: static !important;
+  height: auto !important;
+  overflow: visible !important;
+  background: white !important;
+}
+
+/* 確保詳細頁面內容不會被移動設備樣式影響 */
+.detail-content,
+.detail-images,
+.detail-info,
+.detail-specs,
+.detail-description,
+.detail-features,
+.detail-actions {
+  /* display: block !important; */
+  position: static !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* 修復移動設備上的佈局問題 */
+@media (max-width: 768px) {
+  /* 確保詳細頁面容器正確顯示 */
+  #product-detail-section {
+    position: relative !important;
+    min-height: 100vh !important;
+    padding: 15px !important;
+    background: #f8f9fa !important;
+  }
+  
+  /* 詳細內容容器 */
+  .detail-content {
+    background: white !important;
+    border-radius: 12px !important;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08) !important;
+    overflow: hidden !important;
+    margin-bottom: 20px !important;
+  }
+  
+  /* 圖片區域優化 */
+  .detail-images {
+    padding: 15px !important;
+  }
+  
+  .detail-main-image {
+    width: 100% !important;
+    height: 300px !important;
+    object-fit: cover !important;
+  }
+  
+  .detail-thumbnails {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 8px !important;
+    margin-top: 10px !important;
+  }
+  
+  .detail-thumb {
+    width: 100% !important;
+    height: 80px !important;
+    object-fit: cover !important;
+  }
+  
+  /* 信息區域優化 */
+  .detail-info {
+    padding: 20px !important;
+  }
+  
+  .detail-header {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 15px !important;
+  }
+  
+  .detail-title {
+    font-size: 22px !important;
+    line-height: 1.3 !important;
+  }
+  
+  .detail-price {
+    font-size: 24px !important;
+    align-self: flex-start !important;
+  }
+  
+  /* 規格區域優化 */
+  .detail-specs {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+    padding: 15px !important;
+  }
+  
+  .spec-item {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 4px !important;
+    padding: 10px 0 !important;
+  }
+  
+  .spec-label {
+    font-size: 14px !important;
+    color: #6c757d !important;
+  }
+  
+  .spec-value {
+    font-size: 15px !important;
+    color: #212529 !important;
+  }
+  
+  /* 描述和特色區域 */
+  .detail-description,
+  .detail-features {
+    padding: 0 5px !important;
+  }
+  
+  .detail-description h3,
+  .detail-features h3 {
+    font-size: 18px !important;
+    margin-bottom: 12px !important;
+  }
+  
+  .detail-description p {
+    font-size: 15px !important;
+    line-height: 1.6 !important;
+  }
+  
+  .features-list {
+    grid-template-columns: 1fr !important;
+    gap: 8px !important;
+  }
+  
+  .features-list li {
+    font-size: 14px !important;
+  }
+  
+  /* 操作按鈕優化 */
+  .detail-actions {
+    flex-direction: column !important;
+    gap: 10px !important;
+    padding: 20px 15px !important;
+  }
+  
+  .action-btn {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+  
+  /* 返回按鈕優化 */
+  .detail-back-btn-container {
+    margin-bottom: 15px !important;
+  }
+  
+  .detail-back-btn {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+}
+
+/* 超小屏幕進一步優化 */
+@media (max-width: 480px) {
+  #product-detail-section {
+    padding: 10px !important;
+  }
+  
+  .detail-main-image {
+    height: 250px !important;
+  }
+  
+  .detail-thumb {
+    height: 60px !important;
+  }
+  
+  .detail-title {
+    font-size: 20px !important;
+  }
+  
+  .detail-price {
+    font-size: 22px !important;
+  }
+  
+  .detail-info {
+    padding: 15px !important;
+  }
+}
+
+/* ==================== */
+/* 修復篩選器與詳細頁面的衝突 */
+/* ==================== */
+
+/* 確保篩選器隱藏規則不影響詳細頁面 */
+#product-detail-section .filter-header,
+#product-detail-section .filter-panel,
+#product-detail-section .filter-tabs,
+#product-detail-section .mobile-filter-dropdown {
+  display: none !important;
+}
+
+/* 當顯示詳細頁面時，隱藏主內容和篩選器 */
+#product-detail-section[style*="display: block"] ~ #main-content,
+#product-detail-section.active ~ #main-content {
+  display: none !important;
+}
+
+/* 確保詳細頁面顯示時，身體沒有滾動條 */
+body.detail-active {
+  overflow: hidden !important;
+}
+
+/* ==================== */
+/* JavaScript動態添加的類別樣式 */
+/* ==================== */
+
+/* 用於控制詳細頁面顯示的類別 */
+.page-transition {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.page-hidden {
+  opacity: 0 !important;
+  transform: translateY(20px) !important;
+  pointer-events: none !important;
+}
+
+.page-visible {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  pointer-events: all !important;
+}
+
+/* ==================== */
+/* 修復：商品詳細頁面顯示問題 */
+/* ==================== */
+
+/* 移除衝突的固定顯示規則 */
+#product-detail-section,
+.product-detail-section {
+  /* 移除 !important 強制顯示規則，改用正常控制 */
+  position: relative;
+  height: auto;
+  overflow: visible;
+  background: white;
+  display: none; /* 預設隱藏，由 active 類別控制 */
+}
+
+/* 當詳細頁面啟用時顯示 */
+#product-detail-section.active,
+.product-detail-section.active {
+  display: block;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ==================== */
+/* 確保主內容和詳細頁面切換正常 */
+/* ==================== */
+
+/* 當詳細頁面顯示時，隱藏主內容 */
+#product-detail-section.active ~ #main-content,
+.product-detail-section.active ~ #main-content,
+body.has-detail-active #main-content {
+  display: none !important;
+}
+
+/* 當詳細頁面顯示時，body 添加類別 */
+body.has-detail-active {
+  overflow: hidden;
+  background: #f8f9fa;
+}
+
+/* ==================== */
+/* 詳細頁面容器和佈局 */
+/* ==================== */
+
+.detail-content {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  border: 1px solid #e9ecef;
+  margin-bottom: 30px;
+}
+
+/* ==================== */
+/* 網頁版詳細頁面樣式 */
+/* ==================== */
+
+@media (min-width: 769px) {
+  /* 確保詳細頁面在網頁版正確顯示 */
+  #product-detail-section.active,
+  .product-detail-section.active {
+    display: block;
+    position: relative;
+    width: 100%;
+    margin-top: 30px;
+    margin-bottom: 50px;
+  }
+  
+  /* 詳細內容佈局 - 網頁版兩欄 */
+  .detail-content {
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+    padding: 0;
+  }
+  
+  /* 圖片區域 - 左側 */
+  .detail-images {
+    flex: 1;
+    min-width: 0;
+    padding: 30px;
+    background-color: #f8f9fa;
+  }
+  
+  /* 信息區域 - 右側 */
+  .detail-info {
+    flex: 1;
+    min-width: 0;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* 圖片樣式 */
+  .detail-main-image {
+    width: 100%;
+    height: 450px;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+  
+  .detail-thumbnails {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-top: 15px;
+  }
+  
+  .detail-thumb {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 3px solid transparent;
+  }
+  
+  /* 標題和價格佈局 */
+  .detail-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 25px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e9ecef;
+  }
+  
+  .detail-title {
+    margin: 0;
+    color: #212529;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.3;
+    flex: 1;
+  }
+  
+  .detail-price {
+    font-size: 32px;
+    color: #ff5a5f;
+    font-weight: bold;
+    white-space: nowrap;
+    margin-left: 20px;
+  }
+  
+  /* 規格區域 */
+  .detail-specs {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-bottom: 30px;
+    padding: 25px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+  }
+  
+  /* 描述和特色 */
+  .detail-description,
+  .detail-features {
+    margin-bottom: 30px;
+  }
+  
+  .features-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    padding-left: 20px;
+  }
+  
+  /* 操作按鈕 */
+  .detail-actions {
+    display: flex;
+    gap: 15px;
+    padding-top: 25px;
+    border-top: 1px solid #e9ecef;
+    margin-top: auto;
+  }
+  
+  .action-btn {
+    padding: 14px 24px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  
+  .btn-contact {
+    background-color: #ff5a5f;
+    color: white;
+    flex: 2;
+  }
+  
+  .btn-favorite {
+    background-color: #ffffff;
+    color: #495057;
+    border: 1px solid #dee2e6;
+    flex: 1;
+  }
+  
+  .btn-share {
+    background-color: #f8f9fa;
+    color: #495057;
+    border: 1px solid #dee2e6;
+    flex: 1;
+  }
+}
+
+/* ==================== */
+/* 移動設備詳細頁面樣式 (覆蓋原有問題設定) */
+/* ==================== */
+
+@media (max-width: 768px) {
+  /* 確保詳細頁面在移動設備顯示 */
+  #product-detail-section.active,
+  .product-detail-section.active {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: white;
+    z-index: 1000;
+    overflow-y: auto;
+    padding: 20px;
+    margin: 0;
+  }
+  
+  /* 移動設備返回按鈕 */
+  .detail-back-btn-container {
+    position: sticky;
+    top: 0;
+    background: white;
+    padding: 10px 0;
+    margin-bottom: 15px;
+    z-index: 10;
+  }
+  
+  .detail-back-btn {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  /* 移動設備單欄佈局 */
+  .detail-content {
+    display: block;
+  }
+  
+  /* 圖片區域優化 */
+  .detail-images {
+    padding: 15px;
+  }
+  
+  .detail-main-image {
+    height: 300px;
+  }
+  
+  .detail-thumbnails {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  
+  .detail-thumb {
+    height: 80px;
+  }
+  
+  /* 信息區域優化 */
+  .detail-info {
+    padding: 20px;
+  }
+  
+  .detail-header {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .detail-price {
+    align-self: flex-start;
+  }
+  
+  /* 規格單欄 */
+  .detail-specs {
+    grid-template-columns: 1fr;
+  }
+  
+  /* 特色單欄 */
+  .features-list {
+    grid-template-columns: 1fr;
+  }
+  
+  /* 操作按鈕垂直排列 */
+  .detail-actions {
+    flex-direction: column;
+  }
+}
+
+/* ==================== */
+/* 超小屏幕進一步優化 */
+/* ==================== */
+
+@media (max-width: 480px) {
+  #product-detail-section.active,
+  .product-detail-section.active {
+    padding: 15px;
+  }
+  
+  .detail-main-image {
+    height: 250px;
+  }
+  
+  .detail-thumb {
+    height: 60px;
+  }
+  
+  .detail-thumbnails {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .detail-title {
+    font-size: 24px;
+  }
+  
+  .detail-price {
+    font-size: 28px;
+  }
+}
+
+/* ==================== */
+/* 確保篩選器和詳細頁面不衝突 */
+/* ==================== */
+
+/* 當詳細頁面顯示時，篩選器必須隱藏 */
+#product-detail-section.active ~ #filter-section,
+.product-detail-section.active ~ #filter-section {
+  display: none !important;
+}
+
+/* 確保主內容容器正常 */
+.main-container {
+  position: relative;
+}
+
+/* ==================== */
+/* JavaScript 交互狀態類別 */
+/* ==================== */
+
+/* 頁面過渡效果 */
+.page-transition {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* 隱藏狀態 */
+.page-hidden {
+  opacity: 0;
+  transform: translateY(20px);
+  pointer-events: none;
+  display: none !important;
+}
+
+/* 顯示狀態 */
+.page-visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: all;
+  display: block !important;
+}
+
+/* ==================== */
+/* 確保按鈕和交互元素可點擊 */
+/* ==================== */
+
+.detail-back-btn,
+.action-btn,
+.product-detail-btn {
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* 觸摸反饋 */
+.detail-back-btn:active,
+.action-btn:active,
+.product-detail-btn:active {
+  transform: scale(0.98);
+}
+
+/* ==================== */
+/* 修復可能的重複和衝突樣式 */
+/* ==================== */
+
+/* 移除可能導致衝突的重複樣式 */
+#product-detail-section .filter-header,
+#product-detail-section .filter-panel,
+#product-detail-section .filter-tabs,
+#product-detail-section .mobile-filter-dropdown {
+  display: none !important;
+}
+
+/* 確保詳細頁面內的元素正常顯示 */
+#product-detail-section .detail-content,
+#product-detail-section .detail-images,
+#product-detail-section .detail-info,
+#product-detail-section .detail-specs,
+#product-detail-section .detail-description,
+#product-detail-section .detail-features,
+#product-detail-section .detail-actions {
+  /* display: block !important; */
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* ==================== */
+/* 修復 .detail-info 顯示問題 */
+/* ==================== */
+
+/* 移除衝突的 !important 規則 */
+@media (min-width: 769px) {
+  .detail-info {
+    display: flex !important;
+    flex-direction: column !important;
+    flex: 1 !important;
+    min-width: 300px !important;
+    padding: 30px !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+}
+
+/* 確保在詳細頁面中正確顯示 */
+#product-detail-section.active .detail-info,
+.product-detail-section.active .detail-info {
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+/* 修復移動設備上的顯示 */
+@media (max-width: 768px) {
+  .detail-info {
+    display: block !important;
+    width: 100% !important;
+    padding: 20px !important;
+  }
+}
+
+/* ==================== */
+/* 確保 flex 佈局正常工作 */
+/* ==================== */
+
+/* 網頁版兩欄佈局 */
+@media (min-width: 769px) {
+  .product-detail-container {
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 40px !important;
+    align-items: flex-start !important;
+  }
+  
+  .detail-images,
+  .detail-info {
+    flex: 1 !important;
+    min-width: 0 !important; /* 允許 flex 項目收縮 */
+  }
+}
+
+/* ==================== */
+/* 覆蓋有問題的通用規則 */
+/* ==================== */
+
+/* 第1445行附近的規則太通用，需要更具體 */
+#product-detail-section .detail-info,
+.product-detail-section .detail-info {
+  /* 移除可能衝突的屬性 */
+  display: flex !important;
+  position: relative !important;
+  width: auto !important;
+  max-width: none !important;
+  height: auto !important;
+}
+
+
+/* ==================== */
+/* 修復：網頁版詳細內容無法滾動問題 */
+/* ==================== */
+
+/* 移除所有導致內容無法滾動的 overflow: hidden 設定 */
+.detail-content {
+  overflow: visible !important; /* 改為 visible，允許內容溢出 */
+  max-height: none !important;  /* 移除最大高度限制 */
+  height: auto !important;      /* 高度自動，根據內容擴展 */
+}
+
+/* 修復網頁版滾動問題 */
+@media (min-width: 769px) {
+  /* 詳細頁面容器允許滾動 */
+  #product-detail-section.active,
+  .product-detail-section.active {
+    overflow-y: auto !important;  /* 允許垂直滾動 */
+    max-height: 100vh !important; /* 限制在視窗高度內 */
+    position: fixed !important;   /* 固定定位，覆蓋整個視窗 */
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    z-index: 1000 !important;
+    background: white !important;
+  }
+  
+  /* 詳細內容容器 */
+  .detail-content {
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 40px !important;
+    padding: 0 !important;
+    min-height: 100vh !important; /* 確保至少佔滿整個視窗 */
+    overflow: visible !important;
+  }
+  
+  /* 圖片區域 - 固定寬度，允許滾動 */
+  .detail-images {
+    flex: 0 0 45% !important; /* 固定寬度為45% */
+    max-width: 45% !important;
+    position: sticky !important;
+    top: 0 !important;
+    height: 100vh !important;
+    overflow-y: auto !important; /* 允許圖片區域單獨滾動 */
+    padding: 30px !important;
+  }
+  
+  /* 信息區域 - 可滾動的內容 */
+  .detail-info {
+    flex: 1 !important;
+    min-width: 0 !important;
+    padding: 40px 30px 40px 0 !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+  
+  /* 確保信息區域內的內容可以正常顯示和滾動 */
+  .detail-header,
+  .detail-specs,
+  .detail-description,
+  .detail-features,
+  .detail-actions {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: visible !important;
+  }
+  
+  /* 主圖片尺寸調整 */
+  .detail-main-image {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 500px !important;
+    object-fit: contain !important; /* 確保完整顯示圖片 */
+  }
+}
+
+/* ==================== */
+/* 修復移動設備滾動問題 */
+/* ==================== */
+
+@media (max-width: 768px) {
+  /* 移動設備使用正常的頁面滾動 */
+  #product-detail-section.active,
+  .product-detail-section.active {
+    position: relative !important;
+    height: auto !important;
+    min-height: 100vh !important;
+    padding: 0 0 40px 0 !important;
+  }
+  
+  .detail-content {
+    display: block !important;
+    overflow: visible !important;
+  }
+  
+  .detail-images {
+    position: relative !important;
+    height: auto !important;
+  }
+  
+  .detail-info {
+    padding: 20px !important;
+  }
+}
+
+/* ==================== */
+/* 確保所有內容都能正常顯示 */
+/* ==================== */
+
+/* 移除任何可能限制高度的設定 */
+.detail-specs,
+.detail-description,
+.detail-features {
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+/* 修復列表項目 */
+.features-list {
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+.features-list li {
+  display: list-item !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* ==================== */
+/* 調試輔助樣式（可選，用於確認修復） */
+/* ==================== */
+
+/* 臨時添加邊框查看區域邊界 */
+.detail-content.debug {
+  border: 2px solid #00ff00 !important;
+}
+
+.detail-images.debug {
+  border: 2px solid #ff0000 !important;
+}
+
+.detail-info.debug {
+  border: 2px solid #0000ff !important;
+  min-height: 200px !important; /* 確保最小高度 */
+}
+
+/* ==================== */
+/* 詳細頁面滾動修復 */
+/* ==================== */
+
+/* 移除所有限制滾動的 overflow: hidden 設定 */
+#product-detail-section,
+.product-detail-section,
+.detail-content,
+.detail-info,
+.detail-specs,
+.detail-description,
+.detail-features {
+  overflow: visible !important;
+  overflow-y: visible !important;
+  max-height: none !important;
+  height: auto !important;
+}
+
+/* 確保詳細頁面容器可以滾動 */
+#product-detail-section.active,
+.product-detail-section.active {
+  display: block !important;
+  position: relative !important;
+  min-height: 100vh !important;
+  overflow-y: auto !important;
+  z-index: 10 !important;
+}
+
+/* 修復網頁版詳細頁面滾動 */
+@media (min-width: 769px) {
+  /* 網頁版：詳細頁面佔據整個頁面，可滾動 */
+  #product-detail-section.active,
+  .product-detail-section.active {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: white !important;
+    z-index: 1000 !important;
+    overflow-y: auto !important;
+    padding: 20px !important;
+  }
+  
+  /* 詳細內容容器 - 確保內容完整顯示 */
+  .detail-content {
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 40px !important;
+    max-width: 1200px !important;
+    margin: 0 auto !important;
+    min-height: 100vh !important;
+    padding: 0 20px !important;
+    overflow: visible !important;
+  }
+  
+  /* 圖片區域 */
+  .detail-images {
+    flex: 0 0 45% !important;
+    max-width: 45% !important;
+    position: sticky !important;
+    top: 20px !important;
+    align-self: flex-start !important;
+    height: fit-content !important;
+    max-height: calc(100vh - 40px) !important;
+    overflow-y: auto !important;
+    padding: 20px !important;
+    border-radius: 12px !important;
+    background: #f8f9fa !important;
+  }
+  
+  /* 信息區域 - 可滾動內容 */
+  .detail-info {
+    flex: 1 !important;
+    padding: 0 0 40px 0 !important;
+    overflow: visible !important;
+    min-height: 100vh !important;
+  }
+  
+  /* 確保所有內容區塊都可見 */
+  .detail-specs,
+  .detail-description,
+  .detail-features,
+  .detail-actions {
+    width: 100% !important;
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    margin-bottom: 30px !important;
+  }
+  
+  /* 修復圖片尺寸 */
+  .detail-main-image {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 500px !important;
+    object-fit: contain !important;
+  }
+  
+  /* 返回按鈕固定在左上角 */
+  .detail-back-btn-container {
+    position: fixed !important;
+    top: 30px !important;
+    left: 30px !important;
+    z-index: 1001 !important;
+  }
+  
+  .detail-back-btn {
+    background: white !important;
+    border: 1px solid #e9ecef !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1) !important;
+  }
+}
+
+/* ==================== */
+/* 移動設備詳細頁面滾動修復 */
+/* ==================== */
+
+@media (max-width: 768px) {
+  /* 移動設備：詳細頁面佔據全屏，可滾動 */
+  #product-detail-section.active,
+  .product-detail-section.active {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: white !important;
+    z-index: 1000 !important;
+    overflow-y: auto !important;
+    padding: 15px !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+  
+  /* 單欄佈局 */
+  .detail-content {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: visible !important;
+    padding-bottom: 40px !important;
+  }
+  
+  /* 圖片區域 */
+  .detail-images {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-bottom: 20px !important;
+  }
+  
+  .detail-main-image {
+    width: 100% !important;
+    height: 300px !important;
+    object-fit: cover !important;
+  }
+  
+  /* 信息區域 */
+  .detail-info {
+    width: 100% !important;
+    padding: 0 !important;
+    overflow: visible !important;
+  }
+  
+  /* 返回按鈕固定在頂部 */
+  .detail-back-btn-container {
+    position: sticky !important;
+    top: 0 !important;
+    background: white !important;
+    padding: 10px 0 15px 0 !important;
+    margin-bottom: 15px !important;
+    z-index: 10 !important;
+  }
+  
+  .detail-back-btn {
+    width: 100% !important;
+    justify-content: center !important;
+    background: #f8f9fa !important;
+  }
+}
+
+/* ==================== */
+/* 超小屏幕額外優化 */
+/* ==================== */
+
+@media (max-width: 480px) {
+  #product-detail-section.active,
+  .product-detail-section.active {
+    padding: 10px !important;
+  }
+  
+  .detail-main-image {
+    height: 250px !important;
+  }
+  
+  .detail-thumb {
+    height: 60px !important;
+  }
+}
+
+/* ==================== */
+/* 移除衝突的舊設定 */
+/* ==================== */
+
+/* 檢查並覆蓋任何可能導致滾動問題的舊設定 */
+body {
+  overflow-x: hidden !important;
+}
+
+/* 當詳細頁面顯示時，禁止 body 滾動 */
+body.has-active-detail {
+  overflow: hidden !important;
+}
+
+/* 確保詳細頁面能接收滾動事件 */
+#product-detail-section.active *,
+.product-detail-section.active * {
+  pointer-events: auto !important;
+}
+
+/* ==================== */
+/* 修復返回按鈕顯示問題 */
+/* ==================== */
+
+/* 確保詳細頁面隱藏時，其內的所有元素也隱藏 */
+#product-detail-section:not(.active),
+.product-detail-section:not(.active) {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* 詳細頁面顯示時，返回按鈕才顯示 */
+#product-detail-section.active .detail-back-btn-container,
+.product-detail-section.active .detail-back-btn-container {
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: all !important;
+}
+
+/* 網頁版返回按鈕定位修復 */
+@media (min-width: 769px) {
+  /* 返回按鈕容器 - 只有在詳細頁面內才顯示 */
+  .detail-back-btn-container {
+    position: fixed !important;
+    top: 30px !important;
+    left: 30px !important;
+    z-index: 1001 !important;
+    display: none !important; /* 預設隱藏 */
+  }
+  
+  /* 當詳細頁面顯示時才顯示返回按鈕 */
+  #product-detail-section.active .detail-back-btn-container,
+  .product-detail-section.active .detail-back-btn-container {
+    display: block !important;
+    animation: fadeInBtn 0.3s ease 0.2s both;
+  }
+  
+  @keyframes fadeInBtn {
+    from { opacity: 0; transform: translateX(-10px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  
+  /* 返回按鈕樣式 */
+  .detail-back-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    padding: 12px 20px !important;
+    background: white !important;
+    border: 1px solid #e9ecef !important;
+    border-radius: 8px !important;
+    color: #495057 !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    transition: all 0.3s !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1) !important;
+    text-decoration: none !important;
+  }
+  
+  .detail-back-btn:hover {
+    background: #f8f9fa !important;
+    transform: translateX(-2px) !important;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.12) !important;
+  }
+}
+
+/* ==================== */
+/* 移動設備返回按鈕修復 */
+/* ==================== */
+
+@media (max-width: 768px) {
+  .detail-back-btn-container {
+    position: sticky !important;
+    top: 0 !important;
+    background: white !important;
+    padding: 15px 0 !important;
+    margin-bottom: 15px !important;
+    z-index: 10 !important;
+    display: none !important; /* 預設隱藏 */
+  }
+  
+  /* 當詳細頁面顯示時才顯示返回按鈕 */
+  #product-detail-section.active .detail-back-btn-container,
+  .product-detail-section.active .detail-back-btn-container {
+    display: block !important;
+  }
+  
+  .detail-back-btn {
+    width: 100% !important;
+    justify-content: center !important;
+    padding: 14px !important;
+    background: #f8f9fa !important;
+    border: 1px solid #dee2e6 !important;
+    font-size: 15px !important;
+  }
+}
+
+/* ==================== */
+/* 修復主內容區域按鈕衝突 */
+/* ==================== */
+
+/* 確保主內容區域不會有固定定位的返回按鈕 */
+#main-content .detail-back-btn-container,
+#main-content .detail-back-btn {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+/* 確保商品列表區域沒有返回按鈕 */
+.products-header .detail-back-btn-container,
+.product-card .detail-back-btn-container {
+  display: none !important;
+}
+
+/* ==================== */
+/* JavaScript 交互修復 */
+/* ==================== */
+
+/* 用於 JavaScript 控制的狀態類 */
+.detail-back-btn-container.hidden {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+.detail-back-btn-container.visible {
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: all !important;
+}
+
+/* ==================== */
+/* 緊急修復：確保按鈕不會遺留在頁面上 */
+/* ==================== */
+
+/* 當不在詳細頁面時，隱藏所有固定定位的返回按鈕 */
+body:not(.detail-active) .detail-back-btn-container[style*="position: fixed"],
+body:not(.detail-active) .detail-back-btn-container[style*="fixed"] {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+/* 確保詳細頁面完全隱藏時，其子元素也隱藏 */
+#product-detail-section:not(.active) *,
+.product-detail-section:not(.active) * {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* ==================== */
+/* 新增：防止按鈕重複出現的修復 */
+/* ==================== */
+
+/* 檢查是否有重複的按鈕元素 */
+.detail-back-btn-container:not(:first-of-type) {
+  display: none !important;
+}
+
+/* 確保按鈕只出現在詳細頁面內部 */
+#product-detail-section > .detail-back-btn-container,
+.product-detail-section > .detail-back-btn-container {
+  /* 這是正確的位置 */
+}
+
+/* 其他地方的相同按鈕應該隱藏 */
+.main-container > .detail-back-btn-container,
+#filter-section .detail-back-btn-container,
+#product-section .detail-back-btn-container {
+  display: none !important;
+}
