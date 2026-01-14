@@ -2049,3 +2049,949 @@ body {
     border: 1px solid #ddd !important;
   }
 }
+
+/* ==================== */
+/* 移動設備篩選器優化 */
+/* ==================== */
+
+@media (max-width: 768px) {
+  /* 篩選器容器優化 */
+  #filter-section {
+    padding: 12px 10px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+  }
+  
+  /* 篩選器組優化 */
+  .filter-group {
+    padding: 10px 0;
+    margin: 0;
+  }
+  
+  /* 篩選器標題與標籤布局優化 */
+  .filter-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  
+  .filter-title {
+    font-size: 14px;
+    height: 32px;
+    min-width: 50px;
+    margin-bottom: 0;
+  }
+  
+  /* 篩選器標籤水平滾動容器 */
+  .filter-tabs {
+    display: flex;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 6px;
+    margin-bottom: 4px;
+    scrollbar-width: thin;
+    scrollbar-color: #ff5a5f #f1f1f1;
+  }
+  
+  .filter-tabs::-webkit-scrollbar {
+    height: 3px;
+  }
+  
+  .filter-tabs::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 2px;
+  }
+  
+  .filter-tabs::-webkit-scrollbar-thumb {
+    background: #ff5a5f;
+    border-radius: 2px;
+  }
+  
+  /* 篩選器標籤按鈕優化 */
+  .filter-tab {
+    font-size: 12px;
+    padding: 6px 10px;
+    height: 32px;
+    line-height: 18px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    border-radius: 4px;
+  }
+  
+  /* 位置篩選器面板優化 */
+  .filter-panel {
+    padding-left: 0;
+    margin-top: 8px;
+    max-height: 200px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* 位置選項優化 */
+  .location-option {
+    padding: 6px 8px;
+    font-size: 12px;
+    margin: 0 4px 4px 0;
+    display: inline-flex;
+    border-radius: 4px;
+  }
+  
+  /* 更多篩選器按鈕優化 */
+  .more-filter-tab {
+    font-size: 12px;
+    padding: 6px 10px;
+    height: 32px;
+    line-height: 18px;
+  }
+  
+  /* 更多篩選器下拉框優化 */
+  .more-dropdown {
+    position: fixed;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    width: 90vw;
+    max-width: 320px;
+    max-height: 70vh;
+    z-index: 1100;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+    border: 1px solid #e0e0e0;
+  }
+  
+  .more-option {
+    padding: 12px 14px;
+    font-size: 14px;
+    min-height: 44px;
+  }
+  
+  /* 自訂輸入框優化 */
+  .custom-input-group {
+    flex-direction: column;
+    gap: 8px;
+    padding: 10px;
+  }
+  
+  .custom-input-wrapper {
+    width: 100%;
+  }
+  
+  .custom-input {
+    font-size: 14px;
+    height: 40px;
+    padding: 0 10px;
+  }
+  
+  .custom-input-confirm-btn {
+    width: 100%;
+    height: 40px;
+    margin-top: 8px;
+  }
+  
+  /* 權狀下拉菜單優化 */
+  .square-dropdown-menu {
+    position: fixed;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    width: 150px;
+    z-index: 1100;
+  }
+  
+  .square-dropdown-item {
+    padding: 12px 14px;
+    font-size: 14px;
+  }
+  
+  /* 價格和權狀自訂輸入優化 */
+  .custom-price-container,
+  .custom-square-container {
+    width: 100%;
+    padding: 8px;
+    background: #f8f9fa;
+    border-radius: 6px;
+    margin-top: 5px;
+  }
+  
+  .price-input-group,
+  .square-input-group {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .price-input-wrapper,
+  .square-input-wrapper {
+    width: 100%;
+  }
+  
+  .price-input,
+  .square-input {
+    width: 100%;
+    height: 36px;
+    font-size: 14px;
+  }
+  
+  .price-confirm-btn,
+  .square-confirm-btn {
+    width: 100%;
+    margin-top: 8px;
+    height: 36px;
+  }
+}
+
+/* 超小屏幕特殊處理 */
+@media (max-width: 480px) {
+  /* 篩選器區域進一步壓縮 */
+  #filter-section {
+    padding: 10px 8px;
+  }
+  
+  /* 篩選器標題縮小 */
+  .filter-title {
+    font-size: 13px;
+    height: 28px;
+  }
+  
+  /* 篩選器標籤進一步縮小 */
+  .filter-tab,
+  .more-filter-tab {
+    font-size: 11px;
+    padding: 5px 8px;
+    height: 28px;
+    line-height: 16px;
+  }
+  
+  /* 位置選項進一步優化 */
+  .location-option {
+    padding: 5px 6px;
+    font-size: 11px;
+  }
+  
+  /* 篩選器面板最大高度減小 */
+  .filter-panel.open {
+    max-height: 180px;
+  }
+  
+  /* 更多篩選器下拉框更大 */
+  .more-dropdown {
+    width: 95vw;
+    max-height: 80vh;
+  }
+  
+  /* 重置按鈕優化 */
+  .reset-btn {
+    padding: 6px 12px;
+    font-size: 12px;
+    width: 100%;
+    margin-top: 8px;
+  }
+}
+
+/* 橫屏模式優化 */
+@media (max-height: 600px) and (orientation: landscape) {
+  .filter-panel.open {
+    max-height: 150px;
+  }
+  
+  .more-dropdown {
+    max-height: 60vh;
+  }
+}
+
+/* ==================== */
+/* 觸摸設備優化 */
+/* ==================== */
+
+/* 增大觸摸目標 */
+.filter-tab,
+.location-option,
+.price-option,
+.shape-option,
+.layout-option,
+.square-option,
+.more-option,
+.more-filter-tab,
+.reset-btn,
+.filter-tab[data-value="不限"],
+.filter-tab[data-value="自訂售價"],
+.filter-tab[data-value="自訂坪數"] {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* 觸摸反饋效果 */
+.filter-tab:active,
+.location-option:active,
+.price-option:active,
+.shape-option:active,
+.layout-option:active,
+.square-option:active,
+.more-option:active,
+.more-filter-tab:active,
+.reset-btn:active {
+  transform: scale(0.96);
+  transition: transform 0.1s ease;
+}
+
+/* 防止觸摸時出現藍色高亮 */
+.filter-tab,
+.location-option,
+.price-option,
+.shape-option,
+.layout-option,
+.square-option,
+.more-option,
+.more-filter-tab,
+.filter-title,
+.square-dropdown-container {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  user-select: none;
+}
+
+/* 觸摸設備上的懸停效果替代 */
+@media (hover: none) and (pointer: coarse) {
+  .filter-tab:hover,
+  .location-option:hover,
+  .price-option:hover,
+  .shape-option:hover,
+  .layout-option:hover,
+  .square-option:hover,
+  .more-option:hover,
+  .more-filter-tab:hover {
+    transform: none;
+  }
+  
+  .filter-tab:active,
+  .location-option:active,
+  .price-option:active,
+  .shape-option:active,
+  .layout-option:active,
+  .square-option:active,
+  .more-option:active,
+  .more-filter-tab:active {
+    opacity: 0.8;
+  }
+}
+
+/* 篩選器下拉框觸摸滾動優化 */
+.filter-panel,
+.more-dropdown,
+.square-dropdown-menu {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+/* 防止下拉框內的滾動傳播到父元素 */
+.filter-panel::-webkit-scrollbar,
+.more-dropdown::-webkit-scrollbar,
+.square-dropdown-menu::-webkit-scrollbar {
+  width: 4px;
+}
+
+.filter-panel::-webkit-scrollbar-track,
+.more-dropdown::-webkit-scrollbar-track,
+.square-dropdown-menu::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 2px;
+}
+
+.filter-panel::-webkit-scrollbar-thumb,
+.more-dropdown::-webkit-scrollbar-thumb,
+.square-dropdown-menu::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 2px;
+}
+
+/* ==================== */
+/* 篩選器視覺一致性優化 */
+/* ==================== */
+
+/* 篩選器標籤統一間距 */
+.filter-tab,
+.more-filter-tab {
+  margin: 0 4px 4px 0;
+}
+
+/* 選項視覺統一 */
+.location-option,
+.price-option,
+.shape-option,
+.layout-option,
+.square-option,
+.more-option {
+  border-radius: 6px;
+  border-width: 1.5px;
+  font-weight: 500;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 選中狀態視覺強化 */
+.filter-tab.active,
+.location-option.active,
+.price-option.active,
+.shape-option.active,
+.layout-option.active,
+.square-option.active,
+.more-option.active {
+  border-width: 2px;
+  box-shadow: 0 2px 8px rgba(255, 90, 95, 0.2);
+}
+
+/* 篩選器面板動畫優化 */
+.filter-panel {
+  transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              margin-top 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0;
+  margin-top: 0;
+}
+
+.filter-panel.open {
+  opacity: 1;
+  margin-top: 8px;
+}
+
+/* 篩選器標題視覺強化 */
+.filter-title {
+  position: relative;
+  padding-left: 0;
+  color: #495057;
+  font-weight: 600;
+}
+
+.filter-title::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 16px;
+  background: #ff5a5f;
+  border-radius: 2px;
+}
+
+/* 權狀下拉標題視覺優化 */
+.square-dropdown-container {
+  position: relative;
+  cursor: pointer;
+}
+
+.square-title-text {
+  font-weight: 600;
+  color: #ff5a5f;
+  transition: color 0.2s;
+}
+
+.square-dropdown-arrow {
+  font-size: 12px;
+  color: #6c757d;
+  transition: transform 0.2s, color 0.2s;
+}
+
+.square-dropdown-container:hover .square-title-text {
+  color: #ff3b40;
+}
+
+.square-dropdown-container:hover .square-dropdown-arrow {
+  color: #ff5a5f;
+}
+
+/* 下拉菜單打開時的箭頭動畫 */
+.square-dropdown-menu[style*="display: block"] + .square-dropdown-arrow {
+  transform: rotate(180deg);
+  color: #ff5a5f;
+}
+
+/* 更多篩選器按鈕視覺優化 */
+.more-filter-tab {
+  position: relative;
+  overflow: hidden;
+}
+
+.more-filter-tab::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: #ff5a5f;
+  transform: translateX(-100%);
+  transition: transform 0.3s;
+}
+
+.more-filter-tab.active::after {
+  transform: translateX(0);
+}
+
+/* 重置按鈕視覺優化 */
+.reset-btn {
+  background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%);
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.reset-btn::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.reset-btn:active::after {
+  width: 200px;
+  height: 200px;
+}
+
+.reset-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(108, 117, 125, 0.3);
+}
+
+/* 篩選器選項的視覺層次 */
+.filter-tab:not(.active) {
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+}
+
+.filter-tab.active {
+  background: linear-gradient(135deg, #fff5f5 0%, #ffeaea 100%);
+}
+
+/* 自訂輸入框視覺優化 */
+.custom-input,
+.price-input,
+.square-input {
+  border: 1.5px solid #dee2e6;
+  border-radius: 6px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.custom-input:focus,
+.price-input:focus,
+.square-input:focus {
+  border-color: #ff5a5f;
+  box-shadow: 0 0 0 3px rgba(255, 90, 95, 0.1);
+  outline: none;
+}
+
+/* 確認按鈕視覺優化 */
+.custom-input-confirm-btn,
+.price-confirm-btn,
+.square-confirm-btn {
+  background: linear-gradient(135deg, #ff5a5f 0%, #ff3b40 100%);
+  border: none;
+  border-radius: 6px;
+  color: white;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.custom-input-confirm-btn:hover,
+.price-confirm-btn:hover,
+.square-confirm-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 90, 95, 0.3);
+}
+
+/* 篩選器分組視覺分隔 */
+.filter-group {
+  position: relative;
+}
+
+.filter-group::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 10%;
+  width: 80%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #e9ecef, transparent);
+}
+
+.filter-group:last-child::after {
+  display: none;
+}
+
+/* ==================== */
+/* 觸摸設備專用樣式 */
+/* ==================== */
+
+/* 觸摸反饋效果 */
+.filter-tab.touch-active,
+.location-option.touch-active,
+.price-option.touch-active,
+.shape-option.touch-active,
+.layout-option.touch-active,
+.square-option.touch-active,
+.more-option.touch-active,
+.more-filter-tab.touch-active,
+.square-dropdown-item.touch-active,
+.custom-input-confirm-btn.touch-active,
+.price-confirm-btn.touch-active,
+.square-confirm-btn.touch-active,
+.reset-btn.touch-active {
+  transform: scale(0.95);
+  opacity: 0.9;
+  transition: transform 0.1s, opacity 0.1s;
+}
+
+/* 觸摸設備上移除懸停效果 */
+.touch-device:hover {
+  transform: none !important;
+}
+
+/* 滾動容器視覺反饋 */
+.filter-tabs.scrolling {
+  cursor: grabbing;
+  cursor: -webkit-grabbing;
+}
+
+.filter-panel.scrolling {
+  cursor: grabbing;
+  cursor: -webkit-grabbing;
+}
+
+/* 觸摸設備上的主動滾動指示器 */
+.filter-tabs::-webkit-scrollbar {
+  height: 4px;
+}
+
+.filter-tabs::-webkit-scrollbar-track {
+  background: rgba(0,0,0,0.05);
+  border-radius: 2px;
+}
+
+.filter-tabs::-webkit-scrollbar-thumb {
+  background: rgba(255, 90, 95, 0.5);
+  border-radius: 2px;
+}
+
+.filter-tabs::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 90, 95, 0.7);
+}
+
+/* 移動設備上的文字大小優化 */
+@media (max-width: 480px) {
+  .touch-device {
+    font-size: 14px !important;
+  }
+  
+  .touch-device.filter-tab,
+  .touch-device.more-filter-tab {
+    font-size: 12px !important;
+  }
+}
+
+/* ==================== */
+/* 手機篩選器下拉選單樣式 */
+/* ==================== */
+
+/* 576px 手機樣式 */
+@media (max-width: 576px) {
+  /* 隱藏原有的篩選器結構 */
+  .filter-group .filter-header,
+  .filter-group .filter-panel,
+  .filter-group .filter-tabs,
+  .filter-group .more-tabs {
+    display: none !important;
+  }
+  
+  /* 顯示移動設備的下拉選單 */
+  .filter-group .mobile-filter-dropdown {
+    display: block !important;
+  }
+  
+  /* 篩選器組容器優化 */
+  .filter-group {
+    padding: 0;
+    border-bottom: 1px solid #e9ecef;
+    position: relative;
+  }
+  
+  .filter-group:last-child {
+    border-bottom: none;
+  }
+  
+  /* 移動設備篩選器下拉容器 */
+  .mobile-filter-dropdown {
+    width: 100%;
+    position: relative;
+  }
+  
+  /* 下拉選單按鈕 */
+  .mobile-dropdown-btn {
+    width: 100%;
+    padding: 14px 16px;
+    background: #ffffff;
+    border: none;
+    border-radius: 0;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 15px;
+    font-weight: 500;
+    color: #495057;
+    transition: background-color 0.2s;
+    position: relative;
+  }
+  
+  .mobile-dropdown-btn::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 16px;
+    right: 16px;
+    height: 1px;
+    background: #f1f3f5;
+  }
+  
+  .mobile-dropdown-btn:hover {
+    background-color: #f8f9fa;
+  }
+  
+  .mobile-dropdown-btn.active {
+    color: #ff5a5f;
+    font-weight: 600;
+  }
+  
+  /* 下拉箭頭 */
+  .mobile-dropdown-arrow {
+    color: #868e96;
+    font-size: 12px;
+    transition: transform 0.3s;
+  }
+  
+  .mobile-dropdown-btn.active .mobile-dropdown-arrow {
+    transform: rotate(180deg);
+    color: #ff5a5f;
+  }
+  
+  /* 下拉選單內容 */
+  .mobile-dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #ffffff;
+    border: 1px solid #e9ecef;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+    z-index: 1000;
+    max-height: 60vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .mobile-dropdown-menu.active {
+    display: block;
+  }
+  
+  /* 下拉選單項目 */
+  .mobile-dropdown-item {
+    padding: 14px 16px;
+    font-size: 14px;
+    color: #495057;
+    cursor: pointer;
+    border-bottom: 1px solid #f8f9fa;
+    transition: background-color 0.2s;
+    display: flex;
+    align-items: center;
+  }
+  
+  .mobile-dropdown-item:last-child {
+    border-bottom: none;
+  }
+  
+  .mobile-dropdown-item:hover {
+    background-color: #f8f9fa;
+  }
+  
+  .mobile-dropdown-item.active {
+    color: #ff5a5f;
+    font-weight: 600;
+    background-color: #fff5f5;
+  }
+  
+  /* 特殊樣式：複選框項目 */
+  .mobile-dropdown-item.checkbox-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .mobile-checkbox {
+    accent-color: #ff5a5f;
+    width: 18px;
+    height: 18px;
+  }
+  
+  /* 特殊樣式：單選按鈕項目 */
+  .mobile-dropdown-item.radio-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .mobile-radio {
+    accent-color: #ff5a5f;
+    width: 18px;
+    height: 18px;
+  }
+  
+  /* 位置篩選器的特殊處理（因為有四個tab） */
+  .mobile-location-tabs {
+    display: flex;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    background: #f8f9fa;
+    padding: 10px;
+    border-bottom: 1px solid #e9ecef;
+    gap: 8px;
+  }
+  
+  .mobile-location-tab {
+    padding: 8px 12px;
+    background: #ffffff;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    font-size: 13px;
+    color: #495057;
+    cursor: pointer;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  
+  .mobile-location-tab.active {
+    color: #ff5a5f;
+    border-color: #ff5a5f;
+    background-color: #fff5f5;
+    font-weight: 600;
+  }
+  
+  /* 位置選項網格 */
+  .mobile-location-options {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    padding: 12px;
+  }
+  
+  .mobile-location-option {
+    padding: 10px;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    text-align: center;
+    font-size: 13px;
+    cursor: pointer;
+  }
+  
+  .mobile-location-option.active {
+    color: #ff5a5f;
+    border-color: #ff5a5f;
+    background-color: #fff5f5;
+    font-weight: 600;
+  }
+  
+  /* 更多篩選器的下拉選單特殊樣式 */
+  .mobile-more-section {
+    padding: 12px;
+  }
+  
+  .mobile-more-title {
+    font-size: 14px;
+    color: #495057;
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+  
+  /* 自訂輸入框在移動設備上的樣式 */
+  .mobile-custom-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 12px;
+    background: #f8f9fa;
+    border-radius: 6px;
+    margin: 10px;
+  }
+  
+  .mobile-custom-input-wrapper {
+    width: 100%;
+  }
+  
+  .mobile-custom-input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    font-size: 14px;
+  }
+  
+  .mobile-custom-input-confirm-btn {
+    width: 100%;
+    padding: 12px;
+    background: #ff5a5f;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 8px;
+  }
+  
+  /* 選中項目標記 */
+  .mobile-selected-count {
+    background: #ff5a5f;
+    color: white;
+    font-size: 12px;
+    padding: 2px 6px;
+    border-radius: 10px;
+    margin-left: 8px;
+  }
+}
+
+/* 480px 小手機進一步優化 */
+@media (max-width: 480px) {
+  .mobile-dropdown-btn {
+    padding: 12px 14px;
+    font-size: 14px;
+  }
+  
+  .mobile-dropdown-item {
+    padding: 12px 14px;
+    font-size: 13px;
+  }
+  
+  .mobile-location-options {
+    grid-template-columns: 1fr;
+  }
+  
+  .mobile-location-tab {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+  
+  /* 價格和權狀的自訂輸入在更小的屏幕上垂直排列 */
+  .mobile-custom-price-group,
+  .mobile-custom-square-group {
+    flex-direction: column;
+  }
+}
+
