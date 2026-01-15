@@ -2788,7 +2788,8 @@ body {
     z-index: 1000;
     max-height: 60vh;
     overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
+    /* -webkit-overflow-scrolling: touch; */
+    scroll-behavior: smooth;
   }
   
   .mobile-dropdown-menu.active {
@@ -4447,3 +4448,4 @@ body:not(.detail-active) .detail-back-btn-container[style*="fixed"] {
 #product-section .detail-back-btn-container {
   display: none !important;
 }
+
