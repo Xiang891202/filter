@@ -827,7 +827,6 @@ function renderSquareFilter() {
   if (squareGroup) {
     const squareConfig = filterConfig.find(group => group.key === 'square');
     squareGroup.innerHTML = renderFilterGroup(squareConfig).trim();
-    setupMobileFilterEvents(); // 重新設置移動設備事件
   }
 }
 
@@ -852,10 +851,9 @@ function applyFilters() {
   
   // 類型篩選
   if (filterSelections.type && filterSelections.type !== "不限") {
-    // 這裡需要商品數據中有 type 屬性，我們暫時先註解掉
-    // filteredProducts = filteredProducts.filter(product => 
-    //   product.type === filterSelections.type
-    // );
+    filteredProducts = filteredProducts.filter(product => 
+      product.type === filterSelections.type
+    );
   }
   
   // 價格篩選
@@ -927,10 +925,9 @@ function applyFilters() {
   
   // 型態篩選
   if (filterSelections.shape.length > 0) {
-    // 這裡需要商品數據中有 shape 屬性，我們暫時先註解掉
-    // filteredProducts = filteredProducts.filter(product => 
-    //   filterSelections.shape.includes(product.shape)
-    // );
+    filteredProducts = filteredProducts.filter(product => 
+      filterSelections.shape.includes(product.shape)
+    );
   }
   
   // 更多篩選 - 屋齡
@@ -995,18 +992,60 @@ function applyFilters() {
   
   // 更多篩選 - 朝向
   if (filterSelections.more.direction && filterSelections.more.direction !== "不限") {
-    // 這裡需要商品數據中有 direction 屬性，我們暫時先註解掉
-    // filteredProducts = filteredProducts.filter(product => 
-    //   product.direction === filterSelections.more.direction
-    // );
+    filteredProducts = filteredProducts.filter(product => 
+      product.direction === filterSelections.more.direction
+    );
   }
   
   // 更多篩選 - 刊登時間
   if (filterSelections.more.listTime && filterSelections.more.listTime !== "不限") {
-    // 這裡需要商品數據中有 listTime 屬性，我們暫時先註解掉
-    // filteredProducts = filteredProducts.filter(product => 
-    //   product.listTime === filterSelections.more.listTime
-    // );
+    const now = new Date();
+    filteredProducts = filteredProducts.filter(product => {
+      const listDate = new Date(product.listDate);
+      const diffTime = Math.abs(now - listDate);
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      
+      if (filterSelections.more.listTime === "24小時內") return diffDays <= 1;
+      if (filterSelections.more.listTime === "3天內") return diffDays <= 3;
+      if (filterSelections.more.listTime === "7天內") return diffDays <= 7;
+      if (filterSelections.more.listTime === "14天內") return diffDays <= 14;
+      return false;
+    });
+  }
+  
+  // 更多篩選 - 衛浴
+  if (filterSelections.more.bathroom.length > 0) {
+    filteredProducts = filteredProducts.filter(product => 
+      filterSelections.more.bathroom.includes(product.bathroom.toString())
+    );
+  }
+  
+  // 更多篩選 - 裝潢
+  if (filterSelections.more.decoration.length > 0) {
+    filteredProducts = filteredProducts.filter(product => 
+      filterSelections.more.decoration.includes(product.decoration)
+    );
+  }
+  
+  // 更多篩選 - 廳
+  if (filterSelections.more.living.length > 0) {
+    filteredProducts = filteredProducts.filter(product => 
+      filterSelections.more.living.includes(product.living.toString())
+    );
+  }
+  
+  // 更多篩選 - 代理商
+  if (filterSelections.more.agent.length > 0) {
+    filteredProducts = filteredProducts.filter(product => 
+      filterSelections.more.agent.includes(product.agent)
+    );
+  }
+  
+  // 更多篩選 - 車位
+  if (filterSelections.more.parking.length > 0) {
+    filteredProducts = filteredProducts.filter(product => 
+      filterSelections.more.parking.includes(product.parking.toString())
+    );
   }
   
   console.log(`篩選後商品數量: ${filteredProducts.length}`);
@@ -1209,7 +1248,6 @@ function resetFilters() {
     const btn = menu.previousElementSibling;
     if (btn) btn.classList.remove('active');
   });
-  // ========= 移動設備重置結束 =========
   
   // 應用重置（顯示所有商品）
   applyFilters();
@@ -1459,7 +1497,222 @@ function createCustomSquareInputs(clickedBtn) {
 // 初始渲染所有篩選器
 renderAllFilters();
 
-// 設置移動設備篩選器事件
+// 新增：專門處理移動設備更多篩選事件的函數
+function setupMobileMoreFilterEvents() {
+  console.log("設置移動設備更多篩選事件");
+  
+  // 處理更多篩選中的單選項目（刊登時間）
+  document.addEventListener('click', function(e) {
+    const singleSelectItem = e.target.closest('.mobile-dropdown-item[data-single-select="true"]');
+    if (singleSelectItem) {
+      e.stopPropagation();
+      const tabKey = singleSelectItem.dataset.tab;
+      const value = singleSelectItem.dataset.value;
+      
+      console.log(`點擊單選項目: ${tabKey} - ${value}`);
+      
+      // 更新所有同組項目的選中狀態
+      const allItems = document.querySelectorAll(`.mobile-dropdown-item[data-tab="${tabKey}"]`);
+      allItems.forEach(item => {
+        item.classList.remove('active');
+      });
+      
+      singleSelectItem.classList.add('active');
+      
+      // 更新篩選狀態
+      if (tabKey === 'listTime') {
+        filterSelections.more.listTime = value === "不限" ? '' : value;
+        console.log("更新刊登時間篩選:", filterSelections.more.listTime);
+      }
+      
+      // 關閉下拉菜單
+      const dropdownMenu = singleSelectItem.closest('.mobile-dropdown-menu');
+      if (dropdownMenu) {
+        dropdownMenu.classList.remove('active');
+        const dropdownBtn = dropdownMenu.previousElementSibling;
+        if (dropdownBtn) dropdownBtn.classList.remove('active');
+      }
+      
+      // 應用篩選
+      applyFilters();
+      return;
+    }
+    
+    // 處理更多篩選中的單選框項目（朝向）
+    const radioItem = e.target.closest('.radio-item') || 
+                      e.target.closest('.mobile-radio');
+    if (radioItem) {
+      e.stopPropagation();
+      const dropdownItem = e.target.closest('.mobile-dropdown-item');
+      if (dropdownItem) {
+        const tabKey = dropdownItem.dataset.tab;
+        const value = dropdownItem.dataset.value;
+        
+        console.log(`點擊單選框項目: ${tabKey} - ${value}`);
+        
+        // 更新所有同組單選框
+        document.querySelectorAll(`.mobile-dropdown-item[data-tab="${tabKey}"]`).forEach(item => {
+          item.classList.remove('active');
+          const radio = item.querySelector('.mobile-radio');
+          if (radio) radio.checked = false;
+        });
+        
+        dropdownItem.classList.add('active');
+        const radio = dropdownItem.querySelector('.mobile-radio');
+        if (radio) radio.checked = true;
+        
+        // 更新篩選狀態
+        if (tabKey === 'direction') {
+          filterSelections.more.direction = value === "不限" ? '' : value;
+          console.log("更新朝向篩選:", filterSelections.more.direction);
+        }
+        
+        // 應用篩選
+        applyFilters();
+      }
+      return;
+    }
+    
+    // 處理更多篩選中的複選框項目（屋齡、單價、衛浴等）
+    const checkboxItem = e.target.closest('.checkbox-item') || 
+                         e.target.closest('.mobile-checkbox');
+    if (checkboxItem) {
+      e.stopPropagation();
+      const dropdownItem = e.target.closest('.mobile-dropdown-item');
+      if (dropdownItem) {
+        const tabKey = dropdownItem.dataset.tab;
+        const value = dropdownItem.dataset.value;
+        const isUnlimited = value === "不限";
+        
+        console.log(`點擊複選框項目: ${tabKey} - ${value} (不限: ${isUnlimited})`);
+        
+        // 切換複選框狀態
+        const checkbox = dropdownItem.querySelector('.mobile-checkbox');
+        if (checkbox) {
+          checkbox.checked = !checkbox.checked;
+          dropdownItem.classList.toggle('active', checkbox.checked);
+          
+          // 處理更多篩選的複選邏輯
+          if (tabKey) {
+            // 確保篩選狀態數組存在
+            if (!filterSelections.more[tabKey]) {
+              filterSelections.more[tabKey] = [];
+            }
+            
+            // 如果是不限選項
+            if (isUnlimited) {
+              if (checkbox.checked) {
+                // 清除同tab下的所有其他選項
+                document.querySelectorAll(`.mobile-dropdown-item[data-tab="${tabKey}"]`).forEach(item => {
+                  if (item !== dropdownItem) {
+                    item.classList.remove('active');
+                    const cb = item.querySelector('.mobile-checkbox');
+                    if (cb) cb.checked = false;
+                  }
+                });
+                
+                // 清空該tab的篩選狀態
+                filterSelections.more[tabKey] = [];
+              }
+            } else {
+              // 其他選項：取消"不限"的選中狀態
+              const unlimitedItem = document.querySelector(`.mobile-dropdown-item[data-tab="${tabKey}"][data-value="不限"]`);
+              if (unlimitedItem) {
+                unlimitedItem.classList.remove('active');
+                const unlimitedCheckbox = unlimitedItem.querySelector('.mobile-checkbox');
+                if (unlimitedCheckbox) unlimitedCheckbox.checked = false;
+              }
+              
+              // 更新篩選狀態
+              if (checkbox.checked) {
+                if (!filterSelections.more[tabKey].includes(value)) {
+                  filterSelections.more[tabKey].push(value);
+                }
+              } else {
+                filterSelections.more[tabKey] = filterSelections.more[tabKey].filter(item => item !== value);
+              }
+            }
+            
+            console.log(`更新 ${tabKey} 篩選:`, filterSelections.more[tabKey]);
+          }
+          
+          // 應用篩選
+          applyFilters();
+        }
+      }
+      return;
+    }
+    
+    // 處理移動設備自訂輸入確認按鈕（屋齡、樓層等）
+    const mobileConfirmBtn = e.target.closest('.mobile-custom-input-confirm-btn');
+    if (mobileConfirmBtn) {
+      e.stopPropagation();
+      e.preventDefault();
+      
+      const inputGroup = mobileConfirmBtn.closest('.mobile-custom-input-group');
+      if (!inputGroup) return;
+      
+      const inputs = inputGroup.querySelectorAll('.mobile-custom-input');
+      const minInput = inputs[0];
+      const maxInput = inputs[1];
+      const minValue = minInput.value.trim();
+      const maxValue = maxInput.value.trim();
+      const tabKey = inputGroup.dataset.tab;
+      
+      console.log(`點擊自訂輸入確認: ${tabKey} - ${minValue}~${maxValue}`);
+      
+      if (minValue && maxValue) {
+        const minNum = parseFloat(minValue);
+        const maxNum = parseFloat(maxValue);
+        
+        if (minNum > maxNum) {
+          alert('最小值不能大於最大值');
+          return;
+        }
+        
+        if (minNum < 0 || maxNum < 0) {
+          alert('數值不能為負數');
+          return;
+        }
+        
+        // 取消同tab下所有預設選項的選中狀態
+        const sameTabItems = document.querySelectorAll(`.mobile-dropdown-item[data-tab="${tabKey}"]`);
+        sameTabItems.forEach(item => {
+          item.classList.remove('active');
+          const checkbox = item.querySelector('.mobile-checkbox');
+          if (checkbox) checkbox.checked = false;
+        });
+        
+        // 更新篩選狀態
+        if (tabKey === 'age') {
+          filterSelections.more.age = [`${minNum}-${maxNum}`];
+          console.log("更新屋齡篩選:", filterSelections.more.age);
+        } else if (tabKey === 'floor') {
+          filterSelections.more.floor = [`${minNum}-${maxNum}`];
+          console.log("更新樓層篩選:", filterSelections.more.floor);
+        }
+        
+        // 清空輸入框
+        minInput.value = '';
+        maxInput.value = '';
+        
+        // 隱藏自訂輸入框，顯示選項
+        inputGroup.style.display = 'none';
+        document.querySelectorAll(`.mobile-dropdown-item[data-tab="${tabKey}"]`).forEach(item => {
+          item.style.display = '';
+        });
+        
+        // 應用篩選
+        applyFilters();
+      } else {
+        alert('請輸入完整的範圍');
+      }
+      return;
+    }
+  });
+}
+
+// 修改：改進移動設備篩選器事件設置
 function setupMobileFilterEvents() {
   console.log("設置移動設備篩選器事件");
   
@@ -1472,7 +1725,6 @@ function setupMobileFilterEvents() {
       
       const filterKey = dropdownBtn.dataset.filterKey;
       const dropdownMenu = document.querySelector(`.mobile-dropdown-menu[data-filter-key="${filterKey}"]`);
-      const dropdownArrow = dropdownBtn.querySelector('.mobile-dropdown-arrow');
       
       // 關閉其他打開的下拉菜單
       document.querySelectorAll('.mobile-dropdown-menu.active').forEach(menu => {
@@ -1627,38 +1879,6 @@ function setupMobileFilterEvents() {
       return;
     }
     
-    // 點擊單選框項目
-    const radioItem = e.target.closest('.radio-item') || 
-                      e.target.closest('.mobile-radio');
-    if (radioItem) {
-      e.stopPropagation();
-      const dropdownItem = e.target.closest('.mobile-dropdown-item');
-      if (dropdownItem) {
-        const tabKey = dropdownItem.dataset.tab;
-        const value = dropdownItem.dataset.value;
-        
-        // 更新所有同組單選框
-        document.querySelectorAll(`.mobile-dropdown-item[data-tab="${tabKey}"]`).forEach(item => {
-          item.classList.remove('active');
-          const radio = item.querySelector('.mobile-radio');
-          if (radio) radio.checked = false;
-        });
-        
-        dropdownItem.classList.add('active');
-        const radio = dropdownItem.querySelector('.mobile-radio');
-        if (radio) radio.checked = true;
-        
-        // 更新篩選狀態
-        if (tabKey === 'direction') {
-          filterSelections.more.direction = value === "不限" ? '' : value;
-        }
-        
-        // 應用篩選
-        applyFilters();
-      }
-      return;
-    }
-    
     // 點擊位置篩選器標籤
     const locationTab = e.target.closest('.mobile-location-tab');
     if (locationTab) {
@@ -1728,9 +1948,9 @@ function setupMobileFilterEvents() {
       return;
     }
     
-    // 點擊移動設備自訂輸入確認按鈕
+    // 點擊移動設備自訂輸入確認按鈕（價格、坪數）
     const mobileConfirmBtn = e.target.closest('.mobile-custom-input-confirm-btn');
-    if (mobileConfirmBtn) {
+    if (mobileConfirmBtn && !mobileConfirmBtn.dataset.tab) {
       e.stopPropagation();
       e.preventDefault();
       
@@ -1742,7 +1962,6 @@ function setupMobileFilterEvents() {
       const maxInput = inputs[1];
       const minValue = minInput.value.trim();
       const maxValue = maxInput.value.trim();
-      const tabKey = inputGroup.dataset.tab;
       const isPrice = inputGroup.dataset.type === 'price';
       const isSquare = inputGroup.dataset.type === 'square';
       
@@ -1783,10 +2002,6 @@ function setupMobileFilterEvents() {
               textSpan.innerHTML = `${squareType}: ${minValue}-${maxValue}坪`;
             }
           }
-        } else if (tabKey === 'age') {
-          filterSelections.more.age = [`${minNum}-${maxNum}`];
-        } else if (tabKey === 'floor') {
-          filterSelections.more.floor = [`${minNum}-${maxNum}`];
         }
         
         // 清空輸入框
@@ -2595,7 +2810,7 @@ filterSection.addEventListener("click", function(e) {
       const isAge = tabKey === 'age'; // 屋齡特殊處理
       const isPricePerSquareMeter = tabKey === 'unitPrice'; // 單價特殊處理
       
-      console.log(`點擊了 ${tabKey} 篩選器的選項: ${value}`); // 調試用
+      console.log(`點擊了 ${tabKey} 篩選器的選項: ${value}`);
       
       // 如果是樓層選項
       if (isFloor) {
@@ -2776,7 +2991,7 @@ filterSection.addEventListener("click", function(e) {
                 // 取第一個選中的選項的data-value
                 const firstValue = checkedOptions[0].closest('.more-option').dataset.value;
                 tabBtn.textContent = `${firstValue} ▾`;
-                console.log(`更新按鈕文字為: ${firstValue} ▾`); // 調試用
+                console.log(`更新按鈕文字為: ${firstValue} ▾`);
               } else {
                 // 如果沒有選中的選項，則恢復為原始名稱
                 const originalName = filterConfig.find(group => group.key === 'more')
@@ -2909,6 +3124,9 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // 設置移動設備篩選器事件
   setupMobileFilterEvents();
+  
+  // 設置移動設備更多篩選事件
+  setupMobileMoreFilterEvents();
 });
 
 // 確保篩選器在詳細頁面返回後正常工作
@@ -2920,134 +3138,6 @@ function reinitializeFilters() {
     console.log("篩選器事件已保持");
   }
 }
-
-// 修改 backToProductList 函數
-window.backToProductList = function() {
-  const mainContent = document.getElementById("main-content");
-  const detailSection = document.getElementById("product-detail-section");
-  
-  if (detailSection) {
-    // 添加過渡效果
-    detailSection.classList.remove('active');
-    document.body.classList.remove('detail-active');
-    
-    setTimeout(() => {
-      detailSection.style.display = 'none';
-      if (mainContent) {
-        mainContent.style.display = 'block';
-      }
-      
-      // 更新URL
-      const url = new URL(window.location);
-      url.searchParams.delete('product');
-      window.history.pushState({}, '', url);
-      
-      // 恢復頁面標題
-      document.title = "房屋篩選系統 | 商品展示";
-      
-      // 滾動到頂部
-      window.scrollTo(0, 0);
-    }, 300);
-  }
-};
-
-// 修改顯示商品詳細頁面的函數（在product.js中應該有）
-function showProductDetail(product) {
-  const mainContent = document.getElementById("main-content");
-  const detailSection = document.getElementById("product-detail-section");
-  
-  if (detailSection && mainContent) {
-    // 生成詳細頁面HTML（這裡應該有您的詳細頁面生成邏輯）
-    // ...
-    
-    // 顯示詳細頁面
-function showDetail() {
-  const detailSection = document.querySelector('.product-detail-section');
-  detailSection.classList.add('active');
-  document.body.classList.add('detail-active');
-  
-  // 如果使用 flex 佈局，確保容器正確設置
-  const container = document.querySelector('.product-detail-container');
-  if (container) {
-    container.style.display = 'flex';
-  }
-}
-
-// 返回列表
-function backToList() {
-  const detailSection = document.querySelector('.product-detail-section');
-  detailSection.classList.remove('active');
-  document.body.classList.remove('detail-active');
-}
-    
-    // 隱藏主內容
-    mainContent.style.display = 'none';
-    
-    // 更新URL
-    const url = new URL(window.location);
-    url.searchParams.set('product', product.id || product.name);
-    window.history.pushState({ product: product }, '', url);
-    
-    // 更新頁面標題
-    document.title = `${product.name} - 房屋篩選系統`;
-    
-    // 滾動到頂部
-    window.scrollTo(0, 0);
-  }
-}
-
-// 在 filter.js 的 DOMContentLoaded 事件中，添加移動設備優化
-document.addEventListener('DOMContentLoaded', function() {
-  console.log("DOMContentLoaded - 添加移動設備優化");
-  
-  // 檢查是否是移動設備
-  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-  
-  if (isMobile) {
-    // 為移動設備添加額外的觸摸事件支持
-    console.log("檢測到移動設備，優化觸摸體驗");
-    
-    // 為篩選器選項添加觸摸反饋
-    const touchElements = document.querySelectorAll('.filter-tab, .location-option, .price-option, .shape-option, .layout-option, .square-option, .more-option');
-    
-    touchElements.forEach(el => {
-      el.addEventListener('touchstart', function() {
-        this.classList.add('touch-active');
-      });
-      
-      el.addEventListener('touchend', function() {
-        setTimeout(() => {
-          this.classList.remove('touch-active');
-        }, 200);
-      });
-      
-      el.addEventListener('touchcancel', function() {
-        this.classList.remove('touch-active');
-      });
-    });
-  }
-  
-  // 為篩選器下拉框添加移動設備關閉功能
-  document.addEventListener('touchstart', function(e) {
-    // 如果點擊的是篩選器區域外，關閉所有下拉框
-    if (!e.target.closest('.filter-group') && 
-        !e.target.closest('.more-tab-wrapper') &&
-        !e.target.closest('.square-dropdown-container')) {
-      const dropdowns = document.querySelectorAll('.more-dropdown, .square-dropdown-menu');
-      dropdowns.forEach(dropdown => {
-        dropdown.style.display = 'none';
-      });
-    }
-  });
-  
-  // 防止下拉框內的滾動事件冒泡
-  const dropdowns = document.querySelectorAll('.more-dropdown, .square-dropdown-menu');
-  dropdowns.forEach(dropdown => {
-    dropdown.addEventListener('touchmove', function(e) {
-      e.stopPropagation();
-    });
-  });
-});
 
 // 顯示詳細頁面
 function showProductDetail(productId) {
@@ -3066,7 +3156,7 @@ function showProductDetail(productId) {
   detailSection.scrollTop = 0;
   
   // 5. 載入產品資料
-  loadProductData(productId);
+  // loadProductData(productId);
 }
 
 // 返回列表
